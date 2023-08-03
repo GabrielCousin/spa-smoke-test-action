@@ -1,5 +1,12 @@
 name: "spa-smoke-test-action"
 description: "Use this action to run very basic smoke tests for your single-page apps with Puppeteer"
+inputs:
+  target-url:
+    description: "URL to smoke-test"
+    required: true
+  target-selector:
+    description: "Selector to query"
+    required: true
 runs:
   using: "node16"
   main: "dist/main.js"
