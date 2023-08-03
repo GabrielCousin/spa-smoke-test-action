@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "package": "ncc build --source-map --license licenses.txt",
+    "package": "ncc build dist/index.js --license licenses.txt",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
