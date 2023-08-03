@@ -1,10 +1,14 @@
 import { getInput, setFailed } from "@actions/core";
 import puppeteer from "puppeteer";
 import { wait } from "./utils/wait";
+import { findChromePath } from "./utils/findChromePath";
 
 async function run(): Promise<void> {
+  const chromePath = await findChromePath();
+
   const browser = await puppeteer.launch({
     headless: "new",
+    executablePath: chromePath,
   });
 
   const waitMsInput = getInput("wait-on-start");
