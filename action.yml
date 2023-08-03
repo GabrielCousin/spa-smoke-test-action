@@ -7,6 +7,8 @@ inputs:
   target-selector:
     description: "Selector to query"
     required: true
+  wait-on-start:
+    description: "Waiting duration before asserting"
 runs:
   using: "node16"
   main: "dist/main.js"

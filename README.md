@@ -14,4 +14,7 @@ GitHub action that runs very basic smoke tests for your single-page apps with Pu
 
     # The CSS selector for the element to find
     target-selector: '#elementToWaitFor'
+
+    # Optional wait period before starting the test
+    wait-on-start: 1000
 ```
