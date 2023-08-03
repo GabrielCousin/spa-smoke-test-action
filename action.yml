@@ -1,5 +1,8 @@
 name: "spa-smoke-test-action"
 description: "Use this action to run very basic smoke tests for your single-page apps with Puppeteer"
+branding:
+  icon: "anchor"
+  color: "orange"
 inputs:
   target-url:
     description: "URL to smoke-test"
