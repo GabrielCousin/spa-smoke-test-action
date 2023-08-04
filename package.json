@@ -1,6 +1,6 @@
 {
   "name": "spa-smoke-test-action",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "GitHub action that runs very basic smoke tests for your single-page apps with Puppeteer",
   "main": "dist/index.js",
   "scripts": {
