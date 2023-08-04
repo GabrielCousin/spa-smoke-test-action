@@ -17,10 +17,22 @@ async function run(): Promise<void> {
   const url = getInput("target-url", { required: true });
   const selector = getInput("target-selector", { required: true });
 
+  const basicAuthUser = getInput("http-auth-username");
+  const basicAuthPassword = getInput("http-auth-password");
+  const useBasicAuth = basicAuthUser || basicAuthPassword;
+
   await wait(waitMs);
 
   try {
     const page = await browser.newPage();
+
+    if (useBasicAuth) {
+      await page.authenticate({
+        username: basicAuthUser,
+        password: basicAuthPassword,
+      });
+    }
+
     await page.goto(url);
     await page.waitForSelector(selector);
     console.log("Smoke test succeeded");

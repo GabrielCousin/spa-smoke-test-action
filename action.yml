@@ -10,6 +10,10 @@ inputs:
   target-selector:
     description: "Selector to query"
     required: true
+  http-auth-username:
+    description: "Username for HTTP Basic Auth"
+  http-auth-password:
+    description: "Password for HTTP Basic Auth"
   wait-on-start:
     description: "Waiting duration before asserting"
 runs:

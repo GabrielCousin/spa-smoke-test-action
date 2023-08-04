@@ -23,6 +23,10 @@ jobs:
         # The CSS selector for the element to find
         target-selector: '#elementToWaitFor'
 
+        # Enable HTTP Basic Authentication
+        http-auth-username: "USERNAME"
+        http-auth-password: "PASSWORD"
+
         # Optional wait period before starting the test
         wait-on-start: 1000
 ```
