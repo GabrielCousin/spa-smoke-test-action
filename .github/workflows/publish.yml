@@ -13,8 +13,10 @@ jobs:
         uses: actions/checkout@v3
         with:
           ref: ${{ github.event.release.tag_name }}
-      - name: Install deps and build
-        run: npm ci && npm run build && npm run package
+      - name: Install deps
+        run: npm ci
+      - name: Package
+        run: npm run build && npm run package
       - uses: JasonEtco/build-and-tag-action@v2
         env:
           GITHUB_TOKEN: ${{ github.token }}
