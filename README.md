@@ -18,10 +18,13 @@ jobs:
       uses: GabrielCousin/spa-smoke-test-action@0.1.0
       with:
         # The URL of the single-page app
-        target-url: 'https://your-url.tld'
+        target-url: "https://your-url.tld"
 
         # The CSS selector for the element to find
-        target-selector: '#elementToWaitFor'
+        target-selector: "#elementToWaitFor"
+
+        # Some request URL to spy - will not check against any response
+        request-url: "https://your-endpoint.tld"
 
         # Enable HTTP Basic Authentication
         http-auth-username: "USERNAME"

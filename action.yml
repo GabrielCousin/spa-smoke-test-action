@@ -10,6 +10,8 @@ inputs:
   target-selector:
     description: "Selector to query"
     required: true
+  request-url:
+    description: "Request to spy"
   http-auth-username:
     description: "Username for HTTP Basic Auth"
   http-auth-password:

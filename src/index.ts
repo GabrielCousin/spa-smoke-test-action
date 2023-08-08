@@ -17,6 +17,8 @@ async function run(): Promise<void> {
   const url = getInput("target-url", { required: true });
   const selector = getInput("target-selector", { required: true });
 
+  const endpoint = getInput("request-url");
+
   const basicAuthUser = getInput("http-auth-username");
   const basicAuthPassword = getInput("http-auth-password");
   const useBasicAuth = basicAuthUser || basicAuthPassword;
@@ -33,8 +35,14 @@ async function run(): Promise<void> {
       });
     }
 
+    const requestCheck = endpoint
+      ? page.waitForRequest(endpoint)
+      : Promise.resolve();
+
     await page.goto(url);
-    await page.waitForSelector(selector);
+
+    await Promise.all([requestCheck, page.waitForSelector(selector)]);
+
     console.log("Smoke test succeeded");
   } catch (error) {
     console.log(error);
