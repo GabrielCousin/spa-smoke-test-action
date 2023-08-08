@@ -15,7 +15,7 @@ jobs:
     steps:
     - name: Smoke test after deploy
       id: spa-smoke-test
-      uses: GabrielCousin/spa-smoke-test-action@0.1.0
+      uses: GabrielCousin/spa-smoke-test-action@0.3.0
       with:
         # The URL of the single-page app
         target-url: "https://your-url.tld"
