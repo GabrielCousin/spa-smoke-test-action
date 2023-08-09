@@ -6,8 +6,8 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "package": "ncc build dist/index.js --license licenses.txt",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest",
+    "package": "ncc build dist/index.js --license licenses.txt"
   },
   "keywords": [
     "spa",
@@ -29,13 +29,18 @@
     "puppeteer": "^21.0.1"
   },
   "devDependencies": {
+    "@jest/globals": "^29.6.2",
     "@tsconfig/node16": "^16.1.0",
+    "@types/jest": "^29.5.3",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "@vercel/ncc": "^0.36.1",
     "eslint": "^8.46.0",
     "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-jest": "^27.2.3",
+    "jest": "^29.6.2",
     "prettier": "^3.0.1",
+    "ts-jest": "^29.1.1",
     "typescript": "^5.1.6"
   }
 }
