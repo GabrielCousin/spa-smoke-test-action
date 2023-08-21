@@ -32,7 +32,7 @@
     "@jest/globals": "^29.6.2",
     "@tsconfig/node16": "^16.1.0",
     "@types/jest": "^29.5.3",
-    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "@typescript-eslint/eslint-plugin": "^6.4.1",
     "@typescript-eslint/parser": "^6.4.0",
     "@vercel/ncc": "^0.36.1",
     "eslint": "^8.47.0",
