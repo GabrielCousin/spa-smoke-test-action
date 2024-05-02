@@ -9,3 +9,7 @@ updates:
     directory: "/"
     schedule:
       interval: "monthly"
+    groups:
+      typescript_eslint:
+        patterns:
+          - "@typescript-eslint*"
