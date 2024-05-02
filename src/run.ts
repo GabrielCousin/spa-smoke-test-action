@@ -14,7 +14,7 @@ export async function run(): Promise<void> {
   const chromePath = await findChromePath();
 
   const browser = await puppeteer.launch({
-    headless: "new",
+    headless: true,
     executablePath: chromePath,
   });
 
