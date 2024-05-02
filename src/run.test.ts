@@ -51,7 +51,7 @@ describe("run()", () => {
     await run();
 
     expect(mockPuppeteerLaunch).toHaveBeenCalledWith({
-      headless: "new",
+      headless: true,
       executablePath: chromePath,
     });
   });
