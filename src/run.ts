@@ -37,7 +37,7 @@ export async function run(): Promise<void> {
     await Promise.all([requestCheck, page.waitForSelector(selector)]);
 
     info("Smoke test succeeded");
-  } catch (error) {
+  } catch {
     setFailed("Smoke test failed");
   }
 
