@@ -9,6 +9,7 @@ function useInputs(inputs: Record<string, string>) {
 
 function clearInputs(keys: string[]) {
   return keys.forEach(
+    // eslint-disable-next-line @typescript-eslint/no-dynamic-delete
     (key) => delete process.env[`INPUT_${key.toUpperCase()}`],
   );
 }
