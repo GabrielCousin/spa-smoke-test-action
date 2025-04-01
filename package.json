@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^29.7.0",
-    "@tsconfig/node20": "^20.1.4",
+    "@tsconfig/node20": "^20.1.5",
     "@types/jest": "^29.5.14",
     "@vercel/ncc": "^0.38.3",
     "eslint": "^9.19.0",
