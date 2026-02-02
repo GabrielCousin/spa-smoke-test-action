@@ -24,7 +24,7 @@
     "npm": ">=8.11.0"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
+    "@actions/core": "^3.0.0",
     "@actions/exec": "^2.0.0",
     "puppeteer": "^24.34.0"
   },
