@@ -1,6 +1,6 @@
 # SPA smoke-test 🚭 action
 
-GitHub action that runs very basic smoke tests for your single-page apps using the Lightpanda headless browser by default (with a Puppeteer-compatible API).
+GitHub action that runs very basic smoke tests for your single-page apps using the [Lightpanda headless browser](https://github.com/lightpanda-io/browser) by default (with a [Puppeteer](https://pptr.dev/)–compatible API and optional [Playwright](https://playwright.dev/) support).
 
 ## Usage
 
