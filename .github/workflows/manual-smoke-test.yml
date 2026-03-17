@@ -26,6 +26,9 @@ on:
         default: "lightpanda"
         type: string
 
+permissions:
+  contents: read
+
 jobs:
   run-smoke-test:
     runs-on: ubuntu-latest
