@@ -26,10 +26,13 @@
   "dependencies": {
     "@actions/core": "^1.11.1",
     "@actions/exec": "^2.0.0",
-    "puppeteer": "^24.37.5"
+    "puppeteer": "^24.37.5",
+    "puppeteer-core": "^24.3.0"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
+    "@swc/core": "^1.15.18",
+    "@swc/jest": "^0.2.39",
     "@tsconfig/node20": "^20.1.9",
     "@types/jest": "^30.0.0",
     "@vercel/ncc": "^0.38.4",
@@ -39,8 +42,8 @@
     "eslint-plugin-prettier": "^5.5.5",
     "globals": "^17.3.0",
     "jest": "^30.2.0",
+    "playwright": "^1.58.2",
     "prettier": "^3.6.2",
-    "ts-jest": "^29.4.6",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.56.1"
   }
