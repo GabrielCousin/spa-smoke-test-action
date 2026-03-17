@@ -1,0 +1,56 @@
+name: Manual SPA smoke test
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-url:
+        description: "URL to smoke-test"
+        required: true
+        type: string
+      target-selector:
+        description: "Selector to query"
+        required: true
+        type: string
+      request-url:
+        description: "Request to spy (optional)"
+        required: false
+        type: string
+      http-auth-username:
+        description: "Username for HTTP Basic Auth (optional)"
+        required: false
+        type: string
+      http-auth-password:
+        description: "Password for HTTP Basic Auth (optional)"
+        required: false
+        type: string
+      wait-on-start:
+        description: "Waiting duration before asserting (ms, optional)"
+        required: false
+        default: "0"
+        type: string
+      engine:
+        description: "Browser engine to use (lightpanda, playwright, puppeteer)"
+        required: false
+        default: "lightpanda"
+        type: string
+      browser:
+        description: "Browser name for Playwright engine (chromium, firefox, webkit)"
+        required: false
+        default: "chromium"
+        type: string
+
+jobs:
+  run-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Run SPA smoke test
+        uses: GabrielCousin/spa-smoke-test-action@v0.3.0
+        with:
+          target-url: ${{ github.event.inputs["target-url"] }}
+          target-selector: ${{ github.event.inputs["target-selector"] }}
+          request-url: ${{ github.event.inputs["request-url"] }}
+          http-auth-username: ${{ github.event.inputs["http-auth-username"] }}
+          http-auth-password: ${{ github.event.inputs["http-auth-password"] }}
+          wait-on-start: ${{ github.event.inputs["wait-on-start"] }}
+          engine: ${{ github.event.inputs["engine"] }}
+          browser: ${{ github.event.inputs["browser"] }}

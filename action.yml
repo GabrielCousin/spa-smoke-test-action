@@ -18,6 +18,14 @@ inputs:
     description: "Password for HTTP Basic Auth"
   wait-on-start:
     description: "Waiting duration before asserting"
+  engine:
+    description: "Browser engine to use (lightpanda, playwright, puppeteer)"
+    required: false
+    default: "lightpanda"
+  browser:
+    description: "Browser name for Playwright engine (chromium, firefox, webkit)"
+    required: false
+    default: "chromium"
 runs:
-  using: "node16"
+  using: "node20"
   main: "dist/index.js"
