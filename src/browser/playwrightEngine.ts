@@ -1,4 +1,4 @@
-import { chromium, firefox, webkit, type Browser } from "playwright";
+import { chromium, firefox, type Browser } from "playwright";
 import type { BrowserEngine, BrowserName, SmokeTestOptions } from "./engine";
 
 function getPlaywrightBrowser(browserName: BrowserName) {
