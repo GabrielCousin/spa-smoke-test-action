@@ -6,17 +6,22 @@ import { PlaywrightEngine } from "./playwrightEngine";
 
 describe("createEngine()", () => {
   it("returns LightpandaEngine by default", () => {
-    const engine = createEngine("", "");
+    const engine = createEngine("");
     expect(engine).toBeInstanceOf(LightpandaEngine);
   });
 
   it("returns PuppeteerEngine when engine is puppeteer", () => {
-    const engine = createEngine("puppeteer", "");
+    const engine = createEngine("puppeteer");
     expect(engine).toBeInstanceOf(PuppeteerEngine);
   });
 
-  it("returns PlaywrightEngine when engine is playwright", () => {
-    const engine = createEngine("playwright", "firefox");
+  it("returns PlaywrightEngine (chromium) when engine is playwright-chrome", () => {
+    const engine = createEngine("playwright-chrome");
+    expect(engine).toBeInstanceOf(PlaywrightEngine);
+  });
+
+  it("returns PlaywrightEngine (firefox) when engine is playwright-firefox", () => {
+    const engine = createEngine("playwright-firefox");
     expect(engine).toBeInstanceOf(PlaywrightEngine);
   });
 });

@@ -5,8 +5,6 @@ function getPlaywrightBrowser(browserName: BrowserName) {
   switch (browserName) {
     case "firefox":
       return firefox;
-    case "webkit":
-      return webkit;
     case "chromium":
     default:
       return chromium;

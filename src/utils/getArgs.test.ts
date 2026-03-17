@@ -22,7 +22,6 @@ describe("getArgs()", () => {
       "wait-on-start",
       "request-url",
       "engine",
-      "browser",
     ]);
   });
 
@@ -93,25 +92,22 @@ describe("getArgs()", () => {
     expect(getArgs().endpoint).toBe("https://api.inter.net/whoiam");
   });
 
-  it("returns default engine and browser values", () => {
+  it("returns a default engine value", () => {
     useInputs({
       "target-url": "https://inter.net",
       "target-selector": "div",
     });
 
     expect(getArgs().engine).toBe("lightpanda");
-    expect(getArgs().browser).toBe("chromium");
   });
 
-  it("returns custom engine and browser values", () => {
+  it("returns a custom engine value", () => {
     useInputs({
       "target-url": "https://inter.net",
       "target-selector": "div",
-      engine: "playwright",
-      browser: "firefox",
+      engine: "playwright-firefox",
     });
 
-    expect(getArgs().engine).toBe("playwright");
-    expect(getArgs().browser).toBe("firefox");
+    expect(getArgs().engine).toBe("playwright-firefox");
   });
 });

@@ -7,7 +7,6 @@ const mockGetArgs = jest.fn().mockReturnValue({
   selector: "div",
   endpoint: undefined,
   engine: "puppeteer",
-  browser: "chromium",
 });
 
 const mockRunSmokeTest = jest.fn();

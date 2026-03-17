@@ -10,12 +10,11 @@ export async function run(): Promise<void> {
     selector,
     endpoint,
     engine,
-    browser,
   } = getArgs();
 
   await wait(waitMs);
 
-  const engineInstance = createEngine(engine, browser);
+  const engineInstance = createEngine(engine);
 
   try {
     await engineInstance.runSmokeTest({

@@ -21,14 +21,9 @@ on:
         default: "0"
         type: string
       engine:
-        description: "Browser engine to use (lightpanda, playwright, puppeteer)"
+        description: "Browser engine to use (lightpanda, puppeteer, playwright-chrome, playwright-firefox)"
         required: false
         default: "lightpanda"
-        type: string
-      browser:
-        description: "Browser name for Playwright engine (chromium, firefox, webkit)"
-        required: false
-        default: "chromium"
         type: string
 
 jobs:
@@ -43,4 +38,3 @@ jobs:
           request-url: ${{ github.event.inputs["request-url"] }}
           wait-on-start: ${{ github.event.inputs["wait-on-start"] }}
           engine: ${{ github.event.inputs["engine"] }}
-          browser: ${{ github.event.inputs["browser"] }}
