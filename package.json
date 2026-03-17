@@ -31,7 +31,7 @@
     "@jest/globals": "^30.2.0",
     "@swc/core": "^1.15.18",
     "@swc/jest": "^0.2.39",
-    "@tsconfig/node20": "^20.1.9",
+    "@tsconfig/node24": "^24.0.4",
     "@types/jest": "^30.0.0",
     "@vercel/ncc": "^0.38.4",
     "eslint": "^9.39.2",
@@ -44,7 +44,7 @@
     "prettier": "^3.6.2",
     "puppeteer": "^24.37.5",
     "puppeteer-core": "^24.3.0",
-    "typescript": "^5.8.3",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1"
   }
 }
