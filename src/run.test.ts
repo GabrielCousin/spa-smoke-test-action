@@ -6,8 +6,6 @@ const mockGetArgs = jest.fn().mockReturnValue({
   url: "https://inter.net",
   selector: "div",
   endpoint: undefined,
-  basicAuthUser: undefined,
-  basicAuthPassword: undefined,
   engine: "puppeteer",
   browser: "chromium",
 });
@@ -39,8 +37,6 @@ describe("run()", () => {
       url: "https://inter.net",
       selector: "div",
       endpoint: undefined,
-      basicAuthUser: undefined,
-      basicAuthPassword: undefined,
     });
   });
 

@@ -21,15 +21,7 @@ export class PlaywrightEngine implements BrowserEngine {
     const browser: Browser = await browserType.launch();
 
     try {
-      const context = await browser.newContext({
-        httpCredentials:
-          options.basicAuthUser || options.basicAuthPassword
-            ? {
-                username: options.basicAuthUser ?? "",
-                password: options.basicAuthPassword ?? "",
-              }
-            : undefined,
-      });
+      const context = await browser.newContext();
 
       const page = await context.newPage();
 

@@ -21,8 +21,6 @@ describe("getArgs()", () => {
       "target-selector",
       "wait-on-start",
       "request-url",
-      "http-auth-username",
-      "http-auth-password",
       "engine",
       "browser",
     ]);
@@ -93,26 +91,6 @@ describe("getArgs()", () => {
     });
 
     expect(getArgs().endpoint).toBe("https://api.inter.net/whoiam");
-  });
-
-  it("returns some username", () => {
-    useInputs({
-      "target-url": "https://inter.net",
-      "target-selector": "div",
-      "http-auth-username": "user",
-    });
-
-    expect(getArgs().basicAuthUser).toBe("user");
-  });
-
-  it("returns some password", () => {
-    useInputs({
-      "target-url": "https://inter.net",
-      "target-selector": "div",
-      "http-auth-password": "password",
-    });
-
-    expect(getArgs().basicAuthPassword).toBe("password");
   });
 
   it("returns default engine and browser values", () => {

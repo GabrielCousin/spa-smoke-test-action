@@ -14,13 +14,6 @@ export class PuppeteerEngine implements BrowserEngine {
     try {
       const page = await browser.newPage();
 
-      if (options.basicAuthUser || options.basicAuthPassword) {
-        await page.authenticate({
-          username: options.basicAuthUser ?? "",
-          password: options.basicAuthPassword ?? "",
-        });
-      }
-
       const requestCheck = options.endpoint
         ? page.waitForRequest(options.endpoint)
         : Promise.resolve();
