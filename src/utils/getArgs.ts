@@ -8,8 +8,6 @@ export function getArgs() {
     url: getInput("target-url", { required: true }),
     selector: getInput("target-selector", { required: true }),
     endpoint: getInput("request-url"),
-    basicAuthUser: getInput("http-auth-username"),
-    basicAuthPassword: getInput("http-auth-password"),
     engine: getInput("engine") || "lightpanda",
     browser: getInput("browser") || "chromium",
   };

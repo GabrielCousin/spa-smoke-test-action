@@ -4,7 +4,7 @@ GitHub action that runs very basic smoke tests for your single-page apps using t
 
 ## Usage
 
-````
+```yaml
 on:
   deployment_status:
 
@@ -25,10 +25,6 @@ jobs:
 
         # Some request URL to spy - will not check against any response
         request-url: "https://your-endpoint.tld"
-
-        # Enable HTTP Basic Authentication
-        http-auth-username: "USERNAME"
-        http-auth-password: "PASSWORD"
 
         # Optional wait period before starting the test
         wait-on-start: 1000
@@ -56,10 +52,6 @@ on:
         required: true
         type: string
       # ...other optional inputs...
-````
+```
 
 This workflow forwards the provided inputs to `GabrielCousin/spa-smoke-test-action@v0.3.0`, allowing you to choose the `engine` (`lightpanda`, `playwright`, or `puppeteer`) and, when using Playwright, the `browser` (`chromium`, `firefox`, or `webkit`).
-
-```
-
-```

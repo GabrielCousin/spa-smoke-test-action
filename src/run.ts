@@ -9,12 +9,9 @@ export async function run(): Promise<void> {
     url,
     selector,
     endpoint,
-    basicAuthUser,
-    basicAuthPassword,
     engine,
     browser,
   } = getArgs();
-  const useBasicAuth = Boolean(basicAuthUser || basicAuthPassword);
 
   await wait(waitMs);
 
@@ -25,8 +22,6 @@ export async function run(): Promise<void> {
       url,
       selector,
       endpoint,
-      basicAuthUser: useBasicAuth ? basicAuthUser : undefined,
-      basicAuthPassword: useBasicAuth ? basicAuthPassword : undefined,
     });
 
     info("Smoke test succeeded");

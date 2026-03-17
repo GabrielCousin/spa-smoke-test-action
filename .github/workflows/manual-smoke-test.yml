@@ -15,14 +15,6 @@ on:
         description: "Request to spy (optional)"
         required: false
         type: string
-      http-auth-username:
-        description: "Username for HTTP Basic Auth (optional)"
-        required: false
-        type: string
-      http-auth-password:
-        description: "Password for HTTP Basic Auth (optional)"
-        required: false
-        type: string
       wait-on-start:
         description: "Waiting duration before asserting (ms, optional)"
         required: false
@@ -49,8 +41,6 @@ jobs:
           target-url: ${{ github.event.inputs["target-url"] }}
           target-selector: ${{ github.event.inputs["target-selector"] }}
           request-url: ${{ github.event.inputs["request-url"] }}
-          http-auth-username: ${{ github.event.inputs["http-auth-username"] }}
-          http-auth-password: ${{ github.event.inputs["http-auth-password"] }}
           wait-on-start: ${{ github.event.inputs["wait-on-start"] }}
           engine: ${{ github.event.inputs["engine"] }}
           browser: ${{ github.event.inputs["browser"] }}
