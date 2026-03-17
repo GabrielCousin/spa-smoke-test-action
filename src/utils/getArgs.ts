@@ -9,6 +9,5 @@ export function getArgs() {
     selector: getInput("target-selector", { required: true }),
     endpoint: getInput("request-url"),
     engine: getInput("engine") || "lightpanda",
-    browser: getInput("browser") || "chromium",
   };
 }

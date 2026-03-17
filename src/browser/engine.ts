@@ -1,6 +1,10 @@
-export type EngineName = "lightpanda" | "playwright" | "puppeteer";
+export type EngineName =
+  | "lightpanda"
+  | "puppeteer"
+  | "playwright-chrome"
+  | "playwright-firefox";
 
-export type BrowserName = "chromium" | "firefox" | "webkit";
+export type BrowserName = "chromium" | "firefox";
 
 export interface SmokeTestOptions {
   url: string;

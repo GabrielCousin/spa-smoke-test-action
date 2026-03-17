@@ -4,7 +4,7 @@ GitHub action that runs very basic smoke tests for your single-page apps using t
 
 ## Usage
 
-```yaml
+````yaml
 on:
   deployment_status:
 
@@ -29,11 +29,8 @@ jobs:
         # Optional wait period before starting the test
         wait-on-start: 1000
 
-        # Optional engine selection (lightpanda, puppeteer, playwright)
+        # Optional engine selection (lightpanda, puppeteer, playwright-chrome, playwright-firefox)
         engine: "lightpanda"
-
-        # Optional browser selection for Playwright engine (chromium, firefox, webkit)
-        browser: "chromium"
 
 ## Manual testing via workflow dispatch
 
@@ -52,6 +49,6 @@ on:
         required: true
         type: string
       # ...other optional inputs...
-```
+````
 
-This workflow forwards the provided inputs to `GabrielCousin/spa-smoke-test-action@v0.3.0`, allowing you to choose the `engine` (`lightpanda`, `playwright`, or `puppeteer`) and, when using Playwright, the `browser` (`chromium`, `firefox`, or `webkit`).
+This workflow forwards the provided inputs to `GabrielCousin/spa-smoke-test-action@v0.3.0`, allowing you to choose the `engine` (`lightpanda`, `puppeteer`, `playwright-chrome`, or `playwright-firefox`).

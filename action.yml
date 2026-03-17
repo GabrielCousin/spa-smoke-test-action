@@ -15,13 +15,9 @@ inputs:
   wait-on-start:
     description: "Waiting duration before asserting"
   engine:
-    description: "Browser engine to use (lightpanda, playwright, puppeteer)"
+    description: "Browser engine to use (lightpanda, puppeteer, playwright-chrome, playwright-firefox)"
     required: false
     default: "lightpanda"
-  browser:
-    description: "Browser name for Playwright engine (chromium, firefox, webkit)"
-    required: false
-    default: "chromium"
 runs:
   using: "node24"
   main: "dist/index.js"
