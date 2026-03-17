@@ -16,7 +16,16 @@ function clearInputs(keys: string[]) {
 
 describe("getArgs()", () => {
   afterEach(() => {
-    clearInputs(["target-url", "target-selector"]);
+    clearInputs([
+      "target-url",
+      "target-selector",
+      "wait-on-start",
+      "request-url",
+      "http-auth-username",
+      "http-auth-password",
+      "engine",
+      "browser",
+    ]);
   });
 
   it("throws when target-url is missing", () => {
@@ -104,5 +113,27 @@ describe("getArgs()", () => {
     });
 
     expect(getArgs().basicAuthPassword).toBe("password");
+  });
+
+  it("returns default engine and browser values", () => {
+    useInputs({
+      "target-url": "https://inter.net",
+      "target-selector": "div",
+    });
+
+    expect(getArgs().engine).toBe("lightpanda");
+    expect(getArgs().browser).toBe("chromium");
+  });
+
+  it("returns custom engine and browser values", () => {
+    useInputs({
+      "target-url": "https://inter.net",
+      "target-selector": "div",
+      engine: "playwright",
+      browser: "firefox",
+    });
+
+    expect(getArgs().engine).toBe("playwright");
+    expect(getArgs().browser).toBe("firefox");
   });
 });
