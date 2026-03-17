@@ -1,131 +1,57 @@
-import { describe, it, expect } from "@jest/globals";
-import { run } from "./run";
+import { describe, it, expect, jest } from "@jest/globals";
+import type { BrowserEngine, SmokeTestOptions } from "./browser/engine";
 
-const mockGetArgs = jest.fn().mockReturnValue({});
-const mockFindChromePath = jest.fn();
+const mockRunSmokeTest = jest.fn<BrowserEngine["runSmokeTest"]>();
 
-const mockAuthenticate = jest.fn();
-const mockWaitForRequest = jest.fn();
-const mockWaitForSelector = jest.fn();
-const mockGoto = jest.fn();
-const mockClose = jest.fn();
+jest.unstable_mockModule("@actions/core", () => ({
+  setFailed: jest.fn(),
+  info: jest.fn(),
+  error: jest.fn(),
+}));
 
-const mockNewPage = jest.fn().mockResolvedValue({
-  authenticate: (options: unknown) => mockAuthenticate(options),
-  waitForRequest: (url: string) => mockWaitForRequest(url),
-  waitForSelector: (selector: string) => mockWaitForSelector(selector),
-  goto: (url: string) => mockGoto(url),
+jest.unstable_mockModule("./utils/getArgs", () => ({
+  getArgs: jest.fn(),
+}));
+
+jest.unstable_mockModule("./browser/factory", () => ({
+  createEngine: () => ({
+    runSmokeTest: (options: SmokeTestOptions) => mockRunSmokeTest(options),
+  }),
+}));
+
+const actionsCore = await import("@actions/core");
+const getArgsModule = await import("./utils/getArgs");
+const { run } = await import("./run");
+
+const mockSetFailed = jest.mocked(actionsCore.setFailed);
+const mockLogError = jest.mocked(actionsCore.error);
+const mockGetArgs = jest.mocked(getArgsModule.getArgs);
+
+mockGetArgs.mockReturnValue({
+  waitMs: 0,
+  url: "https://inter.net",
+  selector: "div",
+  endpoint: "",
 });
-
-const mockPuppeteerLaunch = jest.fn().mockResolvedValue({
-  newPage: () => mockNewPage(),
-  close: () => mockClose(),
-});
-
-const mockSetFailed = jest.fn();
-
-jest.mock("puppeteer", () => ({
-  __esModule: true,
-  default: {
-    launch: (options: unknown) => mockPuppeteerLaunch(options),
-  },
-}));
-
-jest.mock("@actions/core", () => ({
-  setFailed: (message: string) => mockSetFailed(message),
-}));
-
-jest.mock("./utils/getArgs", () => ({
-  getArgs: () => mockGetArgs(),
-}));
-
-jest.mock("./utils/findChromePath", () => ({
-  findChromePath: () => mockFindChromePath(),
-}));
 
 describe("run()", () => {
-  it("launches a Puppeteer instance and opens a new page", async () => {
-    const chromePath = "/path/to/chrome";
-    mockFindChromePath.mockResolvedValueOnce(chromePath);
-
+  it("passes the correct options to the engine", async () => {
     await run();
 
-    expect(mockPuppeteerLaunch).toHaveBeenCalledWith({
-      headless: true,
-      executablePath: chromePath,
-    });
-  });
-
-  it("does not authenticate unless credentials are provided", async () => {
-    await run();
-    expect(mockAuthenticate).not.toHaveBeenCalled();
-  });
-
-  it("authenticates with provided credentials", async () => {
-    mockGetArgs.mockReturnValueOnce({
-      basicAuthUser: "user",
-      basicAuthPassword: "password",
-    });
-
-    await run();
-
-    expect(mockAuthenticate).toHaveBeenCalledWith({
-      username: "user",
-      password: "password",
-    });
-  });
-
-  it("does not wait for a specific request unless endpoint is provided", async () => {
-    await run();
-    expect(mockWaitForRequest).not.toHaveBeenCalled();
-  });
-
-  it("waits for a specific request with provided endpoint", async () => {
-    mockGetArgs.mockReturnValueOnce({
-      endpoint: "https://api.inter.net",
-    });
-
-    await run();
-
-    expect(mockWaitForRequest).toHaveBeenCalledWith("https://api.inter.net");
-  });
-
-  it("navigates to a specific url", async () => {
-    mockGetArgs.mockReturnValueOnce({
+    expect(mockRunSmokeTest).toHaveBeenCalledWith({
       url: "https://inter.net",
-    });
-
-    await run();
-
-    expect(mockGoto).toHaveBeenCalledWith("https://inter.net");
-  });
-
-  it("throws if a specific request with provided endpoint is not fetched", async () => {
-    mockGetArgs.mockReturnValueOnce({
-      endpoint: "https://api.inter.net",
-    });
-    mockWaitForRequest.mockRejectedValueOnce(undefined);
-
-    await run();
-
-    expect(mockSetFailed).toHaveBeenCalledWith("Smoke test failed");
-  });
-
-  it("waits for a selector to be in the document", async () => {
-    mockGetArgs.mockReturnValueOnce({
       selector: "div",
+      endpoint: "",
     });
-
-    await run();
-
-    expect(mockWaitForSelector).toHaveBeenCalledWith("div");
   });
 
-  it("throws if a selector is not found", async () => {
-    mockWaitForSelector.mockRejectedValueOnce(undefined);
+  it("marks the run as failed when the engine throws", async () => {
+    const boom = new Error("boom");
+    mockRunSmokeTest.mockRejectedValueOnce(boom);
 
     await run();
 
+    expect(mockLogError).toHaveBeenCalledWith(boom);
     expect(mockSetFailed).toHaveBeenCalledWith("Smoke test failed");
   });
 });

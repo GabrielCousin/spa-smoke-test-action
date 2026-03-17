@@ -1,5 +1,5 @@
 name: "spa-smoke-test-action"
-description: "Use this action to run very basic smoke tests for your single-page apps with Puppeteer"
+description: "Smoke-test single-page apps with a headless browser"
 branding:
   icon: "anchor"
   color: "orange"
@@ -12,12 +12,8 @@ inputs:
     required: true
   request-url:
     description: "Request to spy"
-  http-auth-username:
-    description: "Username for HTTP Basic Auth"
-  http-auth-password:
-    description: "Password for HTTP Basic Auth"
   wait-on-start:
     description: "Waiting duration before asserting"
 runs:
-  using: "node16"
+  using: "node24"
   main: "dist/index.js"

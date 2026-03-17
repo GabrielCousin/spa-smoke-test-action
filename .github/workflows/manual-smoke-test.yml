@@ -1,0 +1,46 @@
+name: Manual SPA smoke test
+
+on:
+  workflow_dispatch:
+    inputs:
+      target-url:
+        description: "URL to smoke-test"
+        required: true
+        type: string
+      target-selector:
+        description: "Selector to query"
+        required: true
+        type: string
+      request-url:
+        description: "Request to spy (optional)"
+        required: false
+        type: string
+      wait-on-start:
+        description: "Waiting duration before asserting (ms, optional)"
+        required: false
+        default: "0"
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  run-smoke-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Build action
+        run: npm run build && npm run package
+
+      - name: Run SPA smoke test
+        uses: ./
+        with:
+          target-url: ${{ inputs.target-url }}
+          target-selector: ${{ inputs.target-selector }}
+          request-url: ${{ inputs.request-url }}
+          wait-on-start: ${{ inputs.wait-on-start }}

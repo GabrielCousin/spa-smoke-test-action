@@ -1,0 +1,2 @@
+--platform ubuntu-latest=catthehacker/ubuntu:full-22.04
+--container-architecture linux/amd64

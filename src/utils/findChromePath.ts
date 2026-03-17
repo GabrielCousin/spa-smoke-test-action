@@ -1,7 +1,10 @@
-import { getExecOutput } from "@actions/exec";
-import { setFailed } from "@actions/core";
+import * as exec from "@actions/exec";
+import * as core from "@actions/core";
 
 export async function findChromePath() {
+  const { getExecOutput } = exec;
+  const { setFailed } = core;
+
   const output = await getExecOutput("which", ["google-chrome"]);
 
   if (output.exitCode === 0) {

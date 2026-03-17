@@ -1,4 +1,4 @@
-import { describe, beforeEach, it, expect } from "@jest/globals";
+import { describe, beforeEach, it, expect, jest } from "@jest/globals";
 import { wait } from "./wait";
 
 describe("wait()", () => {

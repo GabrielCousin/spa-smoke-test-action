@@ -8,15 +8,15 @@
       "ESNext.Iterator",
       "ESNext.Promise"
     ],
+    "module": "nodenext",
+    "target": "es2024",
     "strict": true,
     "esModuleInterop": true,
     "skipLibCheck": true,
-    "outDir": "./dist",
-    "rootDir": "./src",
-    "module": "commonjs",
-    "declaration": false,
-    "sourceMap": false
+    "moduleResolution": "nodenext",
+    "noEmit": true,
+    "types": ["jest", "node"]
   },
-  "include": ["src/**/*.ts"],
-  "exclude": ["**/*.test.ts", "**/*.spec.ts", "dist", "node_modules"]
+  "include": ["src/**/*.test.ts", "src/**/*.spec.ts"],
+  "exclude": ["dist", "node_modules"]
 }

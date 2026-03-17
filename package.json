@@ -6,8 +6,9 @@
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "test": "jest",
-    "package": "ncc build dist/index.js --license licenses.txt"
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
+    "typecheck:test": "tsc -p tsconfig.test.json --noEmit",
+    "package": "ncc build dist/index.js --license licenses.txt --minify"
   },
   "keywords": [
     "spa",
@@ -20,17 +21,17 @@
   ],
   "license": "MIT",
   "engines": {
-    "node": ">=20.0.0",
+    "node": ">=24.0.0",
     "npm": ">=8.11.0"
   },
   "dependencies": {
-    "@actions/core": "^1.11.1",
-    "@actions/exec": "^2.0.0",
-    "puppeteer": "^24.37.5"
+    "@actions/core": "^2.0.0",
+    "@actions/exec": "^2.0.0"
   },
   "devDependencies": {
     "@jest/globals": "^30.2.0",
-    "@tsconfig/node20": "^20.1.9",
+    "@swc/core": "^1.15.18",
+    "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "@vercel/ncc": "^0.38.4",
     "eslint": "^9.39.2",
@@ -40,8 +41,9 @@
     "globals": "^17.3.0",
     "jest": "^30.2.0",
     "prettier": "^3.6.2",
-    "ts-jest": "^29.4.6",
-    "typescript": "^5.8.3",
+    "puppeteer": "^24.37.5",
+    "puppeteer-core": "^24.3.0",
+    "typescript": "^5.9.3",
     "typescript-eslint": "^8.56.1"
   }
 }

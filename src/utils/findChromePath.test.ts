@@ -1,22 +1,26 @@
-import { describe, it, expect } from "@jest/globals";
-import { findChromePath } from "./findChromePath";
+import { describe, it, expect, jest } from "@jest/globals";
 
-const mockGetExecOutput = jest.fn();
-const mockSetFailed = jest.fn();
-
-jest.mock("@actions/exec", () => ({
-  getExecOutput: () => mockGetExecOutput(),
+jest.unstable_mockModule("@actions/exec", () => ({
+  getExecOutput: jest.fn(),
 }));
 
-jest.mock("@actions/core", () => ({
-  setFailed: (message: string) => mockSetFailed(message),
+jest.unstable_mockModule("@actions/core", () => ({
+  setFailed: jest.fn(),
 }));
+
+const execModule = await import("@actions/exec");
+const coreModule = await import("@actions/core");
+const { findChromePath } = await import("./findChromePath");
+
+const mockGetExecOutput = jest.mocked(execModule.getExecOutput);
+const mockSetFailed = jest.mocked(coreModule.setFailed);
 
 describe("findChromePath()", () => {
   it("returns a trimmed path to the installed Chrome", async () => {
-    mockGetExecOutput.mockReturnValueOnce({
+    mockGetExecOutput.mockResolvedValueOnce({
       exitCode: 0,
       stdout: "/foo/bar/baz/google-chrome ",
+      stderr: "",
     });
 
     await expect(findChromePath()).resolves.toBe("/foo/bar/baz/google-chrome");
@@ -24,8 +28,10 @@ describe("findChromePath()", () => {
   });
 
   it("throws when Chrome is not found", async () => {
-    mockGetExecOutput.mockReturnValueOnce({
+    mockGetExecOutput.mockResolvedValueOnce({
       exitCode: 1,
+      stdout: "",
+      stderr: "",
     });
 
     const result = await findChromePath();

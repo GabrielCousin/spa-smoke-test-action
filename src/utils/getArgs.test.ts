@@ -16,7 +16,12 @@ function clearInputs(keys: string[]) {
 
 describe("getArgs()", () => {
   afterEach(() => {
-    clearInputs(["target-url", "target-selector"]);
+    clearInputs([
+      "target-url",
+      "target-selector",
+      "wait-on-start",
+      "request-url",
+    ]);
   });
 
   it("throws when target-url is missing", () => {
@@ -84,25 +89,5 @@ describe("getArgs()", () => {
     });
 
     expect(getArgs().endpoint).toBe("https://api.inter.net/whoiam");
-  });
-
-  it("returns some username", () => {
-    useInputs({
-      "target-url": "https://inter.net",
-      "target-selector": "div",
-      "http-auth-username": "user",
-    });
-
-    expect(getArgs().basicAuthUser).toBe("user");
-  });
-
-  it("returns some password", () => {
-    useInputs({
-      "target-url": "https://inter.net",
-      "target-selector": "div",
-      "http-auth-password": "password",
-    });
-
-    expect(getArgs().basicAuthPassword).toBe("password");
   });
 });
