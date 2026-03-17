@@ -7,13 +7,15 @@ const jestPlugin = require("eslint-plugin-jest");
 const jestRecommendedConfig = jestPlugin.configs["flat/recommended"];
 
 /**
- * @type {import('eslint').ESLint.Plugin}
+ * @type {import('eslint').Linter.FlatConfig[]}
  */
 module.exports = [
+  {
+    ignores: ["dist/**"],
+  },
   eslint.configs.recommended,
   ...tsEslint.configs.strict,
   eslintPluginPrettierRecommended,
-
   {
     ...jestRecommendedConfig,
     languageOptions: {

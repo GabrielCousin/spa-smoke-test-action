@@ -4,13 +4,7 @@ import { getArgs } from "./utils/getArgs";
 import { createEngine } from "./browser/factory";
 
 export async function run(): Promise<void> {
-  const {
-    waitMs,
-    url,
-    selector,
-    endpoint,
-    engine,
-  } = getArgs();
+  const { waitMs, url, selector, endpoint, engine } = getArgs();
 
   await wait(waitMs);
 
