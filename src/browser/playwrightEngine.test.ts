@@ -1,88 +1,51 @@
-import { describe, it, expect, beforeEach } from "@jest/globals";
-import type { Browser } from "playwright";
-import { PlaywrightEngine } from "./playwrightEngine";
+import { describe, it, expect, jest } from "@jest/globals";
+import type { Browser, BrowserContext, Page } from "playwright";
 
-const mockChromiumLaunch = jest.fn();
-const mockFirefoxLaunch = jest.fn();
-
-jest.mock("playwright", () => ({
-  chromium: { launch: () => mockChromiumLaunch() },
-  firefox: { launch: () => mockFirefoxLaunch() },
+jest.unstable_mockModule("playwright", () => ({
+  chromium: { launch: jest.fn() },
+  firefox: { launch: jest.fn() },
 }));
 
-describe("PlaywrightEngine", () => {
-  let goto: jest.Mock;
-  let waitForSelector: jest.Mock;
-  let waitForRequest: jest.Mock;
+const playwrightModule = await import("playwright");
+const { PlaywrightEngine } = await import("./playwrightEngine");
+const { runEngineContractTests } = await import("./engineContractTests");
 
-  beforeEach(() => {
-    goto = jest.fn();
-    waitForSelector = jest.fn();
-    waitForRequest = jest.fn();
+const mockChromiumLaunch = jest.mocked(playwrightModule.chromium.launch);
+const mockFirefoxLaunch = jest.mocked(playwrightModule.firefox.launch);
+
+describe("PlaywrightEngine", () => {
+  const setup = () => {
+    const goto = jest.fn<Page["goto"]>();
+    const waitForSelector = jest.fn<Page["waitForSelector"]>();
+    const waitForRequest = jest.fn<Page["waitForRequest"]>();
 
     const fakePage = {
       goto,
       waitForSelector,
       waitForRequest,
       close: jest.fn(),
-    };
+    } as unknown as Page;
     const fakeContext = {
-      newPage: jest.fn().mockResolvedValue(fakePage),
+      newPage: jest.fn<BrowserContext["newPage"]>().mockResolvedValue(fakePage),
       close: jest.fn(),
-    };
+    } as unknown as BrowserContext;
     const fakeBrowser = {
-      newContext: jest.fn().mockResolvedValue(fakeContext),
+      newContext: jest
+        .fn<Browser["newContext"]>()
+        .mockResolvedValue(fakeContext),
       close: jest.fn(),
     } as unknown as Browser;
 
     mockChromiumLaunch.mockResolvedValue(fakeBrowser);
     mockFirefoxLaunch.mockResolvedValue(fakeBrowser);
-  });
 
-  it("navigates to a specific url", async () => {
-    const engine = new PlaywrightEngine("chromium");
-    await engine.runSmokeTest({ url: "https://inter.net", selector: "div" });
+    return {
+      engine: new PlaywrightEngine("chromium"),
+      mocks: { goto, waitForSelector, waitForRequest },
+    };
+  };
 
-    expect(goto).toHaveBeenCalledWith("https://inter.net");
-  });
-
-  it("waits for a selector to be in the document", async () => {
-    const engine = new PlaywrightEngine("chromium");
-    await engine.runSmokeTest({ url: "https://inter.net", selector: "div" });
-
-    expect(waitForSelector).toHaveBeenCalledWith("div");
-  });
-
-  it("waits for a specific request with provided endpoint", async () => {
-    const engine = new PlaywrightEngine("chromium");
-    await engine.runSmokeTest({
-      url: "https://inter.net",
-      selector: "div",
-      endpoint: "https://api.inter.net/whoiam",
-    });
-
-    expect(waitForRequest).toHaveBeenCalledWith("https://api.inter.net/whoiam");
-  });
-
-  it("does not wait for a specific request unless endpoint is provided", async () => {
-    const engine = new PlaywrightEngine("chromium");
-    await engine.runSmokeTest({ url: "https://inter.net", selector: "div" });
-
-    expect(waitForRequest).not.toHaveBeenCalled();
-  });
-
-  it("throws if a specific request with provided endpoint is not fetched", async () => {
-    const engine = new PlaywrightEngine("chromium");
-    waitForRequest.mockRejectedValueOnce(new Error("Request not performed"));
-
-    await expect(
-      engine.runSmokeTest({
-        url: "https://inter.net",
-        selector: "div",
-        endpoint: "https://api.inter.net/whoiam",
-      }),
-    ).rejects.toThrow("Request not performed");
-  });
+  runEngineContractTests("PlaywrightEngine(chromium)", setup);
 
   it("uses the firefox browser when browserName is firefox", async () => {
     const engine = new PlaywrightEngine("firefox");

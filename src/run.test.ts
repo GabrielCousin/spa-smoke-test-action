@@ -1,32 +1,37 @@
-import { describe, it, expect } from "@jest/globals";
-import { run } from "./run";
+import { describe, it, expect, jest } from "@jest/globals";
+import type { BrowserEngine, SmokeTestOptions } from "./browser/engine";
 
-const mockGetArgs = jest.fn().mockReturnValue({
-  waitMs: 0,
-  url: "https://inter.net",
-  selector: "div",
-  endpoint: undefined,
-  engine: "puppeteer",
-});
+const mockRunSmokeTest = jest.fn<BrowserEngine["runSmokeTest"]>();
 
-const mockRunSmokeTest = jest.fn();
-
-const mockSetFailed = jest.fn();
-
-jest.mock("@actions/core", () => ({
-  setFailed: (message: string) => mockSetFailed(message),
+jest.unstable_mockModule("@actions/core", () => ({
+  setFailed: jest.fn(),
   info: jest.fn(),
 }));
 
-jest.mock("./utils/getArgs", () => ({
-  getArgs: () => mockGetArgs(),
+jest.unstable_mockModule("./utils/getArgs", () => ({
+  getArgs: jest.fn(),
 }));
 
-jest.mock("./browser/factory", () => ({
+jest.unstable_mockModule("./browser/factory", () => ({
   createEngine: () => ({
-    runSmokeTest: (options: unknown) => mockRunSmokeTest(options),
+    runSmokeTest: (options: SmokeTestOptions) => mockRunSmokeTest(options),
   }),
 }));
+
+const actionsCore = await import("@actions/core");
+const getArgsModule = await import("./utils/getArgs");
+const { run } = await import("./run");
+
+const mockSetFailed = jest.mocked(actionsCore.setFailed);
+const mockGetArgs = jest.mocked(getArgsModule.getArgs);
+
+mockGetArgs.mockReturnValue({
+  waitMs: 0,
+  url: "https://inter.net",
+  selector: "div",
+  endpoint: "",
+  engine: "puppeteer",
+});
 
 describe("run()", () => {
   it("passes the correct options to the engine", async () => {
@@ -35,7 +40,7 @@ describe("run()", () => {
     expect(mockRunSmokeTest).toHaveBeenCalledWith({
       url: "https://inter.net",
       selector: "div",
-      endpoint: undefined,
+      endpoint: "",
     });
   });
 

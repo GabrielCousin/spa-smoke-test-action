@@ -3,10 +3,11 @@
   "version": "0.3.0",
   "description": "GitHub action that runs very basic smoke tests for your single-page apps with Puppeteer",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
-    "test": "jest",
+    "test": "NODE_OPTIONS=--experimental-vm-modules jest",
     "package": "ncc build dist/index.js --license licenses.txt"
   },
   "keywords": [
