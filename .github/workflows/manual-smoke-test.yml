@@ -34,10 +34,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Run SPA smoke test
-        uses: GabrielCousin/spa-smoke-test-action@v0.3.0
+        uses: GabrielCousin/spa-smoke-test-action@latest
         with:
-          target-url: ${{ github.event.inputs["target-url"] }}
-          target-selector: ${{ github.event.inputs["target-selector"] }}
-          request-url: ${{ github.event.inputs["request-url"] }}
-          wait-on-start: ${{ github.event.inputs["wait-on-start"] }}
-          engine: ${{ github.event.inputs["engine"] }}
+          target-url: ${{ inputs.target-url }}
+          target-selector: ${{ inputs.target-selector }}
+          request-url: ${{ inputs.request-url }}
+          wait-on-start: ${{ inputs.wait-on-start }}
+          engine: ${{ inputs.engine }}
