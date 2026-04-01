@@ -43,7 +43,7 @@
     "prettier": "^3.6.2",
     "puppeteer": "^24.37.5",
     "puppeteer-core": "^24.3.0",
-    "typescript": "^5.9.3",
+    "typescript": "^6.0.2",
     "typescript-eslint": "^8.56.1"
   }
 }
