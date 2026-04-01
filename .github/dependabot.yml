@@ -1,15 +1,35 @@
-# To get started with Dependabot version updates, you'll need to specify which
-# package ecosystems to update and where the package manifests are located.
-# Please see the documentation for all configuration options:
-# https://docs.github.com/github/administering-a-repository/configuration-options-for-dependency-updates
-
 version: 2
 updates:
   - package-ecosystem: "npm"
     directory: "/"
+    cooldown:
+      default-days: 3
     schedule:
-      interval: "monthly"
+      interval: "weekly"
+      timezone: "Europe/Paris"
+    labels:
+      - "dependencies"
+      - "npm"
     groups:
-      typescript_eslint:
-        patterns:
-          - "@typescript-eslint*"
+      npm-production-minor-patch:
+        dependency-type: "production"
+        update-types:
+          - "minor"
+          - "patch"
+      npm-development-minor-patch:
+        dependency-type: "development"
+        update-types:
+          - "minor"
+          - "patch"
+
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    cooldown:
+      default-days: 3
+    schedule:
+      interval: "weekly"
+      timezone: "Europe/Paris"
+    open-pull-requests-limit: 5
+    labels:
+      - "dependencies"
+      - "github-actions"
