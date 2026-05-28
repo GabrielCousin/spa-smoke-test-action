@@ -30,7 +30,7 @@
   },
   "devDependencies": {
     "@jest/globals": "^30.4.1",
-    "@swc/core": "^1.15.33",
+    "@swc/core": "^1.15.40",
     "@swc/jest": "^0.2.39",
     "@types/jest": "^30.0.0",
     "@vercel/ncc": "^0.38.4",
@@ -44,6 +44,6 @@
     "puppeteer": "^24.43.1",
     "puppeteer-core": "^24.3.0",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.59.3"
+    "typescript-eslint": "^8.60.0"
   }
 }
